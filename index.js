@@ -6,26 +6,42 @@ app.use(cors())
 
 app.use(express.json())
 
-let notes = [
-  {
-    id: 1,
-    content: 'HTML is easy',
-    date: '2019-05-30T17:30:31.098Z',
-    important: true,
-  },
-  {
-    id: 2,
-    content: 'Browser can execute only Javascript',
-    date: '2019-05-30T18:39:34.091Z',
-    important: false,
-  },
-  {
-    id: 3,
-    content: 'GET and POST are the most important methods of HTTP protocol',
-    date: '2019-05-30T19:20:14.298Z',
-    important: true,
-  },
-];
+const mongoose = require('mongoose')
+
+// DO NOT SAVE YOUR PASSWORD TO GITHUB!!
+const url =
+  'mongodb+srv://DamonJJ:Melech18!@cluster0.9gd4i.mongodb.net/notes-app?retryWrites=true'
+
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  date: Date,
+  important: Boolean,
+})
+
+const Note = mongoose.model('Note', noteSchema)
+
+// let notes = [
+//   {
+//     id: 1,
+//     content: 'HTML is easy',
+//     date: '2019-05-30T17:30:31.098Z',
+//     important: true,
+//   },
+//   {
+//     id: 2,
+//     content: 'Browser can execute only Javascript',
+//     date: '2019-05-30T18:39:34.091Z',
+//     important: false,
+//   },
+//   {
+//     id: 3,
+//     content: 'GET and POST are the most important methods of HTTP protocol',
+//     date: '2019-05-30T19:20:14.298Z',
+//     important: true,
+//   },
+// ];
 
 const generateId = () => {
   const maxId = notes.length > 0
@@ -39,7 +55,15 @@ app.get('/', (request, response) => {
 });
 
 app.get('/api/notes', (request, response) => {
-  response.json(notes);
+  Note.find({}).then((notes) => {
+    response.json(notes);
+  });
+});
+
+app.get('/api/notes', (request, response) => {
+  Note.find({}).then((notes) => {
+    response.json(notes);
+  });
 });
 
 app.get('/api/notes/:id', (request, response) => {

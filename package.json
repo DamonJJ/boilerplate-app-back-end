@@ -12,14 +12,15 @@
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
     "build:ui": "rm -rf build && cd ../app-front-end/ && npm run build --prod && cp -r build ../app-back-end",
     "deploy": "git push heroku master",
-    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",    
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && git push && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
   "author": "Damon Jacoby",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mongoose": "^5.13.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.12"
