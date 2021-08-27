@@ -1,9 +1,31 @@
 GET http://localhost:3008/api/notes
 ###
 POST http://localhost:3008/api/notes
+
 Content-Type: application/json
 
 {
     "content": "testa",
     "important": true
+}
+###
+POST http://localhost:3008/api/users
+
+Content-Type: application/json
+
+{
+    "notes": [],
+    "username": "root",
+    "name": "Superuser",
+    "password": "salainen"
+}
+
+###
+POST http://localhost:3008/api/login
+
+Content-Type: application/json
+
+{
+    "name": "Superuser",
+    "password": "salainen"
 }
